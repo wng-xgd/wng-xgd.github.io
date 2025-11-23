@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"content="width=device-width, initial-scale=1.0">
+<title>Photography ✵ Xingdi Wang</title>
+
+<style>
+
+/* ------------------ Menu Button ------------------ */
+#menuBtn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  font-size: 32px;
+  cursor: pointer;
+  z-index: 20000;
+  color: #000000;
+}
+
+/* ------------------ Side Menu ------------------ */
+#sideMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  max-width: 200px;
+  background-color: rgba(0, 0, 0, 0.038);
+  overflow-x: hidden;
+  transition: 0.3s;
+  padding-top: 60px;
+  z-index: 20001;
+}
+
+#sideMenu a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 20px;
+  text-decoration: none;
+  color: #000000;
+  mix-blend-mode: difference;
+}
+
+#sideMenu a:hover {
+  color: #a83030;
+}
+
+#closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+/* Overlay */
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(160, 160, 160, 0.021);
+  display: none;
+  z-index: 15000;
+}
+
+/* ------------------ Page Body ------------------ */
+body {
+  margin: 0;
+  padding: 20px 20px;
+  background: #ffffff;
+  color: #000000;
+  font-family: serif;
+}
+
+.page-wrapper {
+  max-width: 940px;
+  margin: 0 auto;
+}
+
+/* ------------------ Title ------------------ */
+.page-title {
+  text-align: center;
+  font-size: 36px;
+  letter-spacing: 0em;
+  margin: 15px 0 50px 0;
+}
+
+/* ------------------ Photography Project ------------------ */
+.project {
+  margin-bottom: 60px;
+}
+
+.project-title {
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.project-title a {
+  color: #000000;
+  text-decoration: none;
+  border-bottom: 1px solid #aaa;
+}
+
+.project-title a:hover {
+  border-bottom-color: #000000;
+}
+
+.more {
+  text-align: center;        /* 链接整体居中 */
+  margin-top: 20px;
+}
+
+.more a {
+  font-size: 15px;           /* 调整字体大小（随便改） */
+  color: #000000;            /* 链接颜色（想继续黑色就这样） */
+  line-height: 1.8;          /* 行距，可调 */
+  display: inline-block;     /* 让每个链接是独立的可控块 */
+}
+
+.more a:hover {
+  color: #555555;            /* 悬停颜色，可选 */
+}
+
+/* ------------------ Carousel ------------------ */
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  aspect-ratio: 16/10;
+}
+
+.carousel img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.carousel img.active {
+  opacity: 1;
+}
+
+
+
+/* =======================================
+   MOBILE RESPONSIVE (max-width:768px)
+   ======================================= */
+@media (max-width: 768px) {
+
+  /* 页面整体左右更紧凑 */
+  body {
+    padding: 12px 10px;
+  }
+
+  .page-wrapper {
+    padding: 0 5px;
+  }
+
+  /* 标题自动缩小 */
+  .page-title {
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 35px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+
+  /* 项目标题缩小且居中 */
+  .project-title {
+    font-size: 16px;
+  }
+
+  /* 让标题链接不要太大 */
+  .project-title a {
+    font-size: 16px;
+  }
+
+  /* 图片轮播容器变小 + 保持比例 */
+  .carousel {
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16/12; /* 稍微更高一些，适配手机 */
+  }
+
+  /* 图片自动适配屏幕 */
+  .carousel img {
+    object-fit: cover;
+  }
+
+  /* 菜单按钮更贴近顶部 */
+  #menuBtn {
+    top: 12px;
+    left: 12px;
+    font-size: 30px;
+  }
+
+  /* 菜单内容更紧凑 */
+  #sideMenu a {
+    font-size: 18px;
+    padding: 8px 15px;
+  }
+
+  /* 关闭按钮位置优化 */
+  #closeBtn {
+    top: 15px;
+    right: 15px;
+  }
+
+  /* 单个项目间距缩短 */
+  .project {
+    margin-bottom: 50px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Menu Button -->
+<span id="menuBtn">☰</span>
+
+<!-- Overlay -->
+<div id="overlay"></div>
+
+<!-- Side Menu -->
+<div id="sideMenu">
+  <span id="closeBtn">×</span>
+  <a href="index.html">← Home</a>
+  <a href="music.html">✯ Music</a>
+  <a href="installation.html">✫ Installation</a>
+  <a href="synthesizers.html">⍟ Plugin</a>
+  <a href="visual.html">✽ Visual Design</a>
+  <a href="photo.html">✰ Photography</a>
+</div>
+
+<div class="page-wrapper">
+
+  <!-- Title -->
+  <div class="page-title">PHOTOGRAPHY ✵ XINGDI WANG</div>
+
+  <!-- ------------------ Repeatable Project Block ------------------ -->
+  <!-- Project 7 -->
+ <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/71.webp" class="active">
+      <img src="images/72.webp">
+      <img src="images/73.webp">
+      <img src="images/74.webp">
+      <img src="images/75.webp">
+      <img src="images/76.webp">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/ylgvI_vafkIS_ewZn-tq6g" target="_blank" rel="noopener noreferrer">
+       2021/11/01</a>
+    </div>
+  </div>
+
+  <!-- Project 8 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/81.webp" class="active">
+      <img src="images/82.webp">
+      <img src="images/83.webp">
+      <img src="images/84.webp">
+      <img src="images/85.webp">
+      <img src="images/86.webp">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/PEG_GycUX1SocGqTmOXRVQ" target="_blank" rel="noopener noreferrer">
+        2022/08/01</a>
+    </div>
+  </div>
+
+  <!-- Project 9 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/91.webp" class="active">
+      <img src="images/92.webp">
+      <img src="images/93.webp">
+      <img src="images/94.webp">
+      <img src="images/95.webp">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/8rBFjLmeK0l7IKy5rfWM6w" target="_blank" rel="noopener noreferrer">
+        2022/04/27</a>
+    </div>
+  </div>
+
+  <!-- Project 5 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/51.jpeg" class="active">
+      <img src="images/52.jpeg">
+      <img src="images/53.jpeg">
+      <img src="images/54.jpeg">
+      <img src="images/55.jpeg">
+      <img src="images/56.jpeg">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/KH9q8W_0JOvS7v5noQpKkA" target="_blank" rel="noopener noreferrer">
+        2022/12/26</a>
+    </div>
+  </div>
+
+  <!-- Project 6 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/61.webp" class="active">
+      <img src="images/62.png">
+      <img src="images/63.png">
+      <img src="images/64.webp">
+      <img src="images/65.png">
+      <img src="images/66.png">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/e5ukBdPuGJQDMB9783iIgw" target="_blank" rel="noopener noreferrer">
+        2022/12/12</a>
+    </div>
+  </div>
+
+  <!-- Project 10 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/01.webp" class="active">
+      <img src="images/02.webp">
+      <img src="images/03.webp">
+      <img src="images/04.webp">
+      <img src="images/05.webp">
+      <img src="images/06.webp">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/F7ZKqUovWAEMcAhnZ42ZRw" target="_blank" rel="noopener noreferrer">
+        2022/12/09</a>
+    </div>
+  </div>
+
+  <!-- Project 3 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/31.jpeg" class="active">
+      <img src="images/32.jpeg">
+      <img src="images/33.jpeg">
+      <img src="images/34.jpeg">
+      <img src="images/35.jpeg">
+      <img src="images/36.jpeg">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/XWpukrYORZgQ83a4Ow1paA" target="_blank" rel="noopener noreferrer">
+        2023/08/09</a>
+    </div>
+  </div>
+
+  <!-- Project 1 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/11.jpg" class="active">
+      <img src="images/12.jpg">
+      <img src="images/13.jpg">
+      <img src="images/14.jpg">
+      <img src="images/15.jpg">
+      <img src="images/16.jpg">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/ET7xFrWYuaQX9QQc_vwqAA" target="_blank" rel="noopener noreferrer">
+        2024/04/04</a>
+    </div>
+  </div>
+
+  <!-- Project 2 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/21.jpg" class="active">
+      <img src="images/22.jpg">
+      <img src="images/23.jpeg">
+      <img src="images/24.jpeg">
+      <img src="images/25.jpeg">
+      <img src="images/26.jpeg">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/kYyYYqetqE_2jthGTA7n8Q" target="_blank" rel="noopener noreferrer">
+        2024/06/09</a>
+    </div>
+  </div>
+
+  <!-- Project 4 -->
+  <div class="project">
+
+    <div class="carousel" data-index="0">
+      <img src="images/41.jpeg" class="active">
+      <img src="images/42.jpeg">
+      <img src="images/43.jpeg">
+      <img src="images/44.jpeg">
+      <img src="images/45.jpeg">
+    </div>
+
+    <div class="project-title">
+      <a href="https://mp.weixin.qq.com/s/7UAfTfRfbVUYiEJk5yMhmw" target="_blank" rel="noopener noreferrer">
+        2023/03/03</a>
+    </div>
+  </div>
+
+
+  <!-- more -->
+  <div class="more">
+    <a href="https://mp.weixin.qq.com/s/IZANqO3xlaq0KJz6hgWdrA" target="_blank" rel="noopener noreferrer">
+        2021/10/23</a><br>
+    <a href="https://mp.weixin.qq.com/s/QbmBXE4QvQNXeLlRBsDOxw" target="_blank" rel="noopener noreferrer">
+        2021/10/30</a><br>
+    <a href="https://mp.weixin.qq.com/s/oV0DW78xPVwNdTMDy2rRbg" target="_blank" rel="noopener noreferrer">
+        2021/10/31</a><br>
+    <a href="https://mp.weixin.qq.com/s/viSpgRVtlmgg-GYLPMjS1w" target="_blank" rel="noopener noreferrer">
+        2022/07/24</a><br>
+    <a href="https://mp.weixin.qq.com/s/k9J0yfAkPpKFFzwe6dZ68A" target="_blank" rel="noopener noreferrer">
+        2022/08/09</a><br>
+    <a href="https://mp.weixin.qq.com/s/Odx8DrC9tGurK-b7q84-lQ" target="_blank" rel="noopener noreferrer">
+        2022/08/19</a><br>
+    <a href="https://mp.weixin.qq.com/s/8zGmd6jkwnhs5RdEQemlLA" target="_blank" rel="noopener noreferrer">
+        2022/12/07</a><br>
+        ...
+  </div>
+
+</div>
+
+<script>
+/* ------------------ Side Menu Script ------------------ */
+const menuBtn = document.getElementById('menuBtn');
+const closeBtn = document.getElementById('closeBtn');
+const sideMenu = document.getElementById('sideMenu');
+const overlay = document.getElementById('overlay');
+
+menuBtn.onclick = function () {
+  const currentWidth = window.getComputedStyle(sideMenu).width;
+  if (currentWidth === '200px') {
+    sideMenu.style.width = '0';
+    overlay.style.display = 'none';
+  } else {
+    sideMenu.style.width = '200px';
+    overlay.style.display = 'block';
+  }
+};
+
+closeBtn.onclick = overlay.onclick = function () {
+  sideMenu.style.width = '0';
+  overlay.style.display = 'none';
+};
+
+/* ------------------ Image Carousels for Each Project ------------------ */
+const carousels = document.querySelectorAll('.carousel');
+
+carousels.forEach((carousel) => {
+  const images = carousel.querySelectorAll('img');
+  let index = 0;
+
+  setInterval(() => {
+    images[index].classList.remove('active');
+    index = (index + 1) % images.length;
+    images[index].classList.add('active');
+  }, 3000);
+});
+</script>
+
+</body>
+</html>

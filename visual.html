@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design ✵ Xingdi Wang</title>
+
+  <style>
+
+    /* ====== Menu Button ====== */
+    #menuBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 20000;
+    color: #000000;
+    }
+
+    /* ====== Side Menu ====== */
+    #sideMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;               /* 默认收起 */
+    height: 100%;
+    max-width: 200px;
+    background-color: rgba(255, 255, 255, 0.026);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 20001;
+    mix-blend-mode: difference;
+    }
+
+    #sideMenu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #727272;
+    mix-blend-mode: difference;
+    }
+
+    #sideMenu a:hover {
+    color: #a83030;
+    }
+
+    #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #5c5c5c;
+    }
+
+    /* ====== Overlay（点击空白关闭菜单） ====== */
+    #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(165, 165, 165, 0.079);
+    display: none;
+    z-index: 15000; 
+    }
+
+    /* ====== 主要内容 ====== */
+
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #ffffff;
+      font-family: serif;
+    }
+
+    /* 顶部标题 */
+    .page-title {
+      width: 100%;
+      text-align: center;
+      font-size: 40px;
+      letter-spacing: 0 em;
+      font-weight: normal;
+      margin-bottom: 30px;
+      color: #000000;
+    }
+
+    /* 瀑布流布局 */
+    .masonry {
+        /*display: block;   /* ← 不再用 columns */
+        column-count: 3;
+        column-gap: 20px;
+    }
+
+    /* 单个 item */
+    .item {
+      break-inside: avoid;
+      margin-bottom: 30px;
+      display: flex;
+       justify-content: center;
+    }
+
+    /* 图片样式 */
+    .item img {
+      width: 50%;
+      display: block;
+      border-radius: 1px;
+      margin: 0 auto;
+      
+    }
+
+    /* 视频样式 */
+    .item video {
+      width: 50%;
+      display: block;
+      border-radius: 1px;
+      margin: 0 auto;
+    }
+
+    /* 手机端适配 */
+    @media (max-width: 900px) {
+      .masonry {
+        column-count: 2;
+      }
+
+        /* 标题自动缩小 */
+      .page-title {
+        font-size: 20px;
+        margin-top: 15px;
+        letter-spacing: 0em;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .masonry {
+        column-count: 2;
+      }
+      .page-title {
+        font-size: 18px;
+        margin-top: 10px;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+    <!-- Menu Button -->
+    <span id="menuBtn">☰</span>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu">
+    <span id="closeBtn">×</span>
+    <a href="index.html">← Home</a>
+    <a href="music.html">✯ Music</a>
+    <a href="installation.html">✫ Installation</a>
+    <a href="synthesizers.html">⍟ Plugin</a>
+    <a href="visual.html">✽ Visual Design</a>
+    <a href="photo.html">✰ Photography</a>
+    </div>
+
+
+
+    <!-- 
+    <div class="back-link">
+        <a href="index.html"
+        style="color: #695c5c; font-size: 20px; text-decoration: none;">← back</a>
+    </div>-->
+    <div class="page-title">DESIGN ✵ XINGDI WANG</div>
+
+    <div class="masonry">
+
+        <div class="item">
+        <video controls muted autoplay loop>
+            <source src="images/0001-0250.mp4" type="video/mp4">
+        </video>
+        </div>
+
+
+        <!-- 图片 -->
+        <div class="item"><img src="images/JADE_ff3.png" alt=""></div>
+        <div class="item"><img src="images/mossflesh002.png" alt=""></div>
+        <div class="item"><img src="images/spiderWeb0006.png" alt=""></div>
+        <div class="item"><img src="images/18_5 copy.png" alt=""></div>
+        <div class="item"><img src="images/1.png" alt=""></div>
+
+        <div class="item">
+        <video controls muted autoplay loop>
+            <source src="images/0001-0528.mp4" type="video/mp4">
+        </video>
+        </div>
+
+        <div class="item"><img src="images/2.png" alt=""></div>
+        <div class="item"><img src="images/web3.png" alt=""></div>
+        <div class="item"><img src="images/3.png" alt=""></div>
+        <div class="item"><img src="images/4.png" alt=""></div>
+        <div class="item"><img src="images/web2.png" alt=""></div>
+        <div class="item"><img src="images/05.png" alt=""></div>
+
+    </div>
+
+    <script>
+    /*sidemenu*/
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+
+    menuBtn.onclick = function () {
+        const currentWidth = window.getComputedStyle(sideMenu).width;
+
+        if (currentWidth === '280px') {
+            sideMenu.style.width = '0';
+            overlay.style.display = 'none';
+        } else {
+            sideMenu.style.width = '280px';
+            overlay.style.display = 'block';
+        }
+    };
+
+    closeBtn.onclick = function () {
+        sideMenu.style.width = '0';
+        overlay.style.display = 'none';
+    };
+
+    overlay.onclick = function () {
+        sideMenu.style.width = '0';
+        overlay.style.display = 'none';
+    };
+
+
+    </script>
+
+</body>
+</html>

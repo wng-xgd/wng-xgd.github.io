@@ -1,17 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>music</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music ✵ Xingdi Wang</title>
+
+  <style>
+
+    /* ====== Menu Button ====== */
+    #menuBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 20000;
+    color: #ffffff;
+    }
+
+    /* ====== Side Menu ====== */
+    #sideMenu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;               /* 默认收起 */
+    height: 100%;
+    max-width: 200px;
+    background-color: rgba(0,0,0,0.85);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 20001;
+    }
+
+    #sideMenu a {
+    display: block;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #dddddd;
+    }
+
+    #sideMenu a:hover {
+    color: #a83030;
+    }
+
+    #closeBtn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #ffffff;
+    }
+
+    /* ====== Overlay（点击空白关闭菜单） ====== */
+    #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.25);
+    display: none;
+    z-index: 15000; 
+    }
+
+
+
+    /* ====== 主要内容 ====== */
+
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background-color: #000000;
+      color: #f5f5f5;
+      font-family: serif;
+    }
+
+    /* 整体内容宽度限制，让版面居中 */
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    /* 顶部标题 */
+    .page-header {
+      margin-bottom: 32px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 12px;
+    }
+
+    .page-title {
+      font-size: 32px;
+      letter-spacing: 0em;
+      font-family: serif;
+    }
+
+    .back-link {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+
+    .back-link a {
+      color: #aaaaaa;
+      text-decoration: none;
+    }
+
+    .back-link a:hover {
+      color: #ffffff;
+    }
+
+    /* 曲目列表整体 */
+    .track-list {
+      margin-top: 32px;
+    }
+
+    /* 单个曲目块 */
+    .track {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+      align-items: flex-start;
+    }
+
+    /* 封面图 */
+    .track-cover {
+      width: 160px;         /* 封面宽度 */
+      height: auto;
+      object-fit: cover;
+      border: 1px solid #444;
+    }
+
+    /* 右侧文本区域 */
+    .track-info {
+      flex: 1;
+    }
+
+    .track-title {
+      font-size: 22px;
+      margin: 0 0 8px 0;
+      letter-spacing: 0.05em;
+    }
+
+    .track-date {
+      font-size: 14px;
+      color: #aaaaaa;
+      margin-bottom: 8px;
+    }
+
+    .track-description {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .track-links {
+      font-size: 14px;
+    }
+
+    .track-links a {
+      color: #ffffff;
+      text-decoration: none;        /* 不要默认蓝色和下划线 */
+      margin-right: 16px;
+      border-bottom: 1px solid #666; /* 用下边框做一点提示（可删） */
+      padding-bottom: 2px;
+    }
+
+    .track-links a:hover {
+      border-bottom-color: #ffffff;
+    }
+
+    /* 分割线（可选） */
+    .divider {
+      height: 1px;
+      background-color: #222;
+      margin: 0 0 32px 0;
+    }
+
+    /* 简单手机端适配 */
+    @media (max-width: 768px) {
+    
+        .page-wrapper, .page-header, .track-info {
+        text-align: center;
+      }
+      
+      body {
+        padding: 20px 20px;
+      }
+
+      .page-title {
+        font-size: 18px;
+        margin-top: 10px;
+        justify-content: center;
+      }
+
+      .track {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .track-cover {
+        width: 100%;
+        margin: 0 auto;
+        max-width: 260px;  /* 手机上封面不会太大 */
+      }
+
+      .track-links {
+        text-align: center;
+      }
+      
+      .track-title {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
+
+
 <body>
-    <h1>MUSIC</h1>
-    <br>
-    <a href="https://on.soundcloud.com/uHyq4" target=_blank>
-     <img src="/Users/wxd/Documents/Website/images/mutant1.jpg" height="400"> 
-     <br>
-     soundcloud homepage
-    </a>
+
+    <!-- Menu Button -->
+    <span id="menuBtn">☰</span>
+
+    <!-- Overlay -->
+    <div id="overlay"></div>
+
+    <!-- Side Menu -->
+    <div id="sideMenu">
+    <span id="closeBtn">×</span>
+    <a href="index.html">← Home</a>
+    <a href="music.html">✯ Music</a>
+    <a href="installation.html">✫ Installation</a>
+    <a href="synthesizers.html">⍟ Plugin</a>
+    <a href="visual.html">✽ Visual Design</a>
+    <a href="photo.html">✰ Photography</a>
+    </div>
+
+   <div class="page-wrapper">
+
+    <!-- 顶部标题区域 -->
+    <header class="page-header">
+      <div class="page-title">MUSIC ✵ XINGDI WANG</div>
+      
+      <!-- 如果你首页是 index.html，可以保留这行；不需要的话可以删除这整个 back-link
+      <div class="back-link">
+        <a href="index.html">← Back to Home</a>
+      </div> -->
+      
+    </header>
+
+    <!-- 曲目列表开始 -->
+    <section class="track-list">
+
+      <!-- ========= 曲目 1 ========= -->
+      <article class="track">
+        <!-- 封面图片：把 src 改成你的图片路径 -->
+        <img class="track-cover" src="images/HTX0428_3.png" alt="Track 1 cover">
+
+        <!-- 右侧信息 -->
+        <div class="track-info">
+          <h2 class="track-title">Hei'Tian'Xiang</h2>
+          <div class="track-date">Released: 2025-06-05</div>
+          <!--  track-description -->
+          <div class="track-description">
+            ///
+          </div>
+          <div class="track-links">
+            <a href="https://xingdiwang.bandcamp.com/track/heitianxiang" target="_blank">Bandcamp</a>
+            <a href="https://on.soundcloud.com/vJlc13qFOK0pwWCt3p" target="_blank">SoundCloud</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="divider"></div>
+
+      <!-- ========= 曲目 2 ========= -->
+      <article class="track">
+        <img class="track-cover" src="images/xingdi_wang_1_1_01.png" alt="Track 2 cover">
+
+        <div class="track-info">
+          <h2 class="track-title">MUTANT IDRA</h2>
+          <div class="track-date">Released: 2022-06-06</div>
+          <div class="track-description">
+            ///
+          </div>
+          <div class="track-links">
+            <a href="https://xingdiwang.bandcamp.com/track/mutant-idra" target="_blank">Bandcamp</a>
+            <a href="https://on.soundcloud.com/8pnFFkJCc2scCxGQ3e" target="_blank">SoundCloud</a>
+          </div>
+        </div>
+      </article>
+
+
+
+    <script>
+        /*sidemenu*/
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const sideMenu = document.getElementById('sideMenu');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.onclick = function () {
+            const currentWidth = window.getComputedStyle(sideMenu).width;
+
+            if (currentWidth === '280px') {
+                sideMenu.style.width = '0';
+                overlay.style.display = 'none';
+            } else {
+                sideMenu.style.width = '280px';
+                overlay.style.display = 'block';
+            }
+        };
+
+        closeBtn.onclick = function () {
+            sideMenu.style.width = '0';
+            overlay.style.display = 'none';
+        };
+
+        overlay.onclick = function () {
+            sideMenu.style.width = '0';
+            overlay.style.display = 'none';
+        };
+
+
+    </script>
+
+
 </body>
-</html>

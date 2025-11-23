@@ -6,91 +6,108 @@
   <link rel="icon" type="image/png" href="favicon.png" />
   <title>Xingdi Wang</title>
   <style>
-    body {
-      margin: 0;
-      font-family: serif;
-    }
+  body {
+    margin: 0;
+    font-family: serif;
+  }
 
-    /* Header */
-    header {
-      display: flex;
-      align-items: center;
-      z-index: 20000;
-      background-color: #ffffff00;
-      position: fixed;
-      width: 100%;
-      mix-blend-mode: difference;   
-      color: rgb(139, 139, 139);
-    }
+  /* Header */
+  header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* 左右两端分布 */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 95%;                      /* 让 header 填满整个宽度 */
+  padding: 20px;
+  z-index: 20000;
+  background-color: transparent;
+  mix-blend-mode: difference;
+  color: rgb(139, 139, 139);
+  }
 
-    /* Menu icon */
+  /* Name */
+  .name {
+    font-size: 28px;
+    font-weight: normal;
+    position: relative;
+    mix-blend-mode: difference; /* negative blend */
+    font-size: clamp(20px, 4vw, 20px);
+  }
+
+  /* Bio text */
+  .textBio {
+    font-size: 10px;  
+    position: fixed;
+    top: 70%;
+    left: 20%;
+    right: 20%;
+    color: rgb(255, 255, 255);
+    mix-blend-mode: difference;
+    font-family: serif;
+  }
+
+  /* ====== Menu Button ====== */
     #menuBtn {
-      padding: 5% 5%;
-      font-size: 32px;
-      cursor: pointer;
-      mix-blend-mode: difference;
+    top: 20px;
+    left: 20px;
+    font-size: 32px;
+    cursor: pointer;
+    z-index: 20000;
+    color: #5c5c5c;
+    mix-blend-mode: difference;
     }
 
-    /* Name */
-    .name {
-      font-size: 28px;
-      font-weight: normal;
-      position: relative;
-      mix-blend-mode: difference; /* negative blend */
-      font-size: clamp(20px, 4vw, 20px);
-    }
-
-    /* Bio text */
-    .textBio {
-      font-size: 10px;  
-      position: fixed;
-      top: 70%;
-      left: 20%;
-      right: 20%;
-      color: rgb(255, 255, 255);
-      mix-blend-mode: difference;
-      font-family: serif;
-    }
-
-
-    /* Side menu */
+    /* ====== Side Menu ====== */
     #sideMenu {
-      left: 4%;
-      height: 100%;
-      width: 15%;
-      position: fixed;
-      z-index: 20000;
-      background-color: #ffffff00;
-      overflow-x: hidden;
-      transition: 0.3s;
-      padding-top: 10%;
-      mix-blend-mode: difference;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;               /* 默认收起 */
+    height: 100%;
+    max-width: 200px;
+    background-color: rgba(255, 255, 255, 0.026);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 100px;
+    z-index: 20001;
+    mix-blend-mode: difference;
     }
 
     #sideMenu a {
-      top: 0px;
-      left: 5%;
-      margin: 10%;
-      text-decoration: none;
-      font-size: 18px;
-      color: #656565;
-      display: block;
-      transition: 0.2s;
+    display: block;
+    padding: 10px 20px;
+    font-size: 20px;
+    text-decoration: none;
+    color: #727272;
+    mix-blend-mode: difference;
     }
 
     #sideMenu a:hover {
-      background-color: #656464;
+    color: #a83030;
     }
 
     #closeBtn {
-      position: absolute;
-      top: 40%;
-      left: 10%;
-      font-size: 25px;
-      color: #656565;
-      cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+    color: #5c5c5c;
     }
-
+    
+    /*遮罩层，用于Menu开关*/
+    #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(87, 87, 87, 0.057);  /* 半透明阴影，可调 */
+    display: none;                /* 默认不显示 */
+    z-index: 15000;               /* 要比 sideMenu 低，但高于页面 */
+    }
 
     /*Carousel*/
     .carousel-wrapper {
@@ -207,6 +224,7 @@
     );
     pointer-events: none;
     }
+
     
     /* =============================
     MOBILE RESPONSIVE FIX (必加)
@@ -283,6 +301,7 @@
       font-size: 22px !important;
     }
 
+    
   }
 
         
@@ -290,96 +309,94 @@
 </head>
 
 
+<div id="overlay"></div>
 
 <body>
 
-    <header>
-        <span id="menuBtn">☰</span>
-        <div class="name">Xingdi Wang ✵ 王星迪</div>
-    </header>
+  <header>
+      <span id="menuBtn">☰</span>
+      <div class="name">Xingdi Wang ✵ 王星迪</div>
+  </header>
 
-    <div class="textBio">
-         <h1>
-        　　°Wang Xingdi graduated from the Electronic
-        Musical Instrument Engineering program at Xinghai
-        Conservatory of Music and is currently enrolled in the
-        Electronic Music Department at the Giuseppe Verdi
-        Conservatory of Music in Milan.
-        <br><br>
-        Her creative pursuits encompass a variety of genres,
-        including sound interactive installations, synthesizer
-        software design, acousmatic music, and three-
-        dimensional visual projects. Starting from sound
-        samples, she diverges into a series of intricate and
-        miniature worlds based on the interplay between
-        reality and illusion.
-        <br><br>
-        Her achievements include winning the Bronze Award
-        in the International Electronic Music Interactive
-        Media category at the Danny Awards, as well as an
-        Excellence Award in Applied Music, third prize in
-        the NCDA Future Designers Competition for Digital
-        Music in Guangdong province and received an
-        Outstanding Work Award at the National Conference
-        on Sound and Music Technology (CMST).
+  <div class="textBio">
+        <h1>
+      　　°Wang Xingdi graduated from the Electronic
+      Musical Instrument Engineering program at Xinghai
+      Conservatory of Music and is currently enrolled in the
+      Electronic Music Department at the Giuseppe Verdi
+      Conservatory of Music in Milan.
+      <br><br>
+      Her creative pursuits encompass a variety of genres,
+      including sound interactive installations, synthesizer
+      software design, acousmatic music, and three-
+      dimensional visual projects. Starting from sound
+      samples, she diverges into a series of intricate and
+      miniature worlds based on the interplay between
+      reality and illusion.
+      <br><br>
+      Her achievements include winning the Bronze Award
+      in the International Electronic Music Interactive
+      Media category at the Danny Awards, as well as an
+      Excellence Award in Applied Music, third prize in
+      the NCDA Future Designers Competition for Digital
+      Music in Guangdong province and received an
+      Outstanding Work Award at the National Conference
+      on Sound and Music Technology (CMST).
+  
+  </div>
+
+  <!-- Side Menu -->
+  <div id="sideMenu">
+      <span id="closeBtn">×</span>
+      <a href="music.html"> ✯ Music</a>
+      <a href="installation.html"> ✫ Installation</a>
+      <a href="synthesizers.html"> ⍟ Plugin</a>
+      <a href="visual.html"> ✽ Visual Design</a>
+      <a href="photo.html"> ✰ Photography</a>
+      
+  </div>
+
+
+  <main>
+
+    <div class="carousel-wrapper"></div>
+      <div class="carousel">
+
+        <img src="images/homepage1.jpg" class="active">
+        <img src="images/homepage2.jpg">
+        <img src="images/homepage3.jpg">
+        <img src="images/homepage4.jpg">
+
     
-    </div>
-
-    <!-- Side Menu -->
-    <div id="sideMenu">
-        <span id="closeBtn">×</span>
-        <a href="music.html"> ✯ Music</a>
-        <a href="installation.html"> ✫ Installation</a>
-        <a href="synthesizers.html"> ⍟ Plugin</a>
-        <a href="visual.html"> ✽ Visual</a>
-        <a href="photo.html"> ✰ Photography</a>
-        
-    </div>
-
-
-
-    <main>
-
-     <div class="carousel-wrapper"></div>
-        <div class="carousel">
-            <img src="images/homepage1.jpg" class="active">
-            <img src="images/homepage2.jpg">
-            <img src="images/homepage3.jpg">
-            <img src="images/homepage4.jpg">
-
-            
-
-            <div class="main-text">
-                <h1>
-                <i>
-                　★ ° . *　✩　　°　.　°☆ 　. * ● ¸. 　　　★ 　° :. ★　 * • ○ ° ★.　 * 　.　 .° 
-                　. ● . ★ ° . *　☆　. * ● ¸ . 　★ 　° :●. 　 *• ○ ° ★　 .　 * 　.　 
-                .　 ° .　°☆ . * ● ¸ .★ ° . *　　　°　.　°☆ 　. * ● ¸. 　　　★ 　° :. 　 * • ○ ° ★.　 * 　.　 　★     ° :.☆
-                <br>
-                <span style="color: #ffffff; font-size: 100px; text-decoration: none;">xingdiwangxd@gmail.com</a>
-                <br>
-                <a href="https://www.instagram.com/wngxgd00s12z20o?igsh=MW1vcTloMWhycW1xdg%3D%3D&utm_source=qr" target=_blank 
-                style="color: #ffffff; font-size: 50px; text-decoration: none;">Instagram /</a>
-                <a href="https://xhslink.com/m/8l10sEMKPNQ" target=_blank 
-                style="color: #ffffff; font-size: 50px; text-decoration: none;">/ Rednote</a>
-                <br>
-                <br>
-                </i>
-                </h1>
-            </div>
-            
-           
-
-
-            <div class="main-text2">
-                <h1>
-                    XINGDI WANG
-                </h1>
-            </div>
-
+        <div class="main-text">
+            <h1>
+            <i>
+            　★ ° . *　✩　　°　.　°☆ 　. * ● ¸.★ 　° :. ★　 * • ○ ° ★.　 * 　.　 .° 
+            　. ● . ★ ° . *　☆　. * ● ¸ . 　★ 　° :●. 　 *• ○ ° ★　 .　 * 　.　 
+            .　 ° .　°☆ . * ● ¸ .★ °　.　°☆ 　. * ● ¸.★ 　° :. 　 * • ○ ° ★.　 * 　.　 　★     ° :.☆
+            <br>
+            <span style="color: #ffffff; font-size: 100px; text-decoration: none;">xingdiwangxd@gmail.com</a>
+            <br>
+            <a href="https://www.instagram.com/wngxgd00s12z20o?igsh=MW1vcTloMWhycW1xdg%3D%3D&utm_source=qr" target=_blank 
+            style="color: #ffffff; font-size: 50px; text-decoration: none;">Instagram/</a>
+            <a href="https://xhslink.com/m/8l10sEMKPNQ" target=_blank 
+            style="color: #ffffff; font-size: 50px; text-decoration: none;">/Rednote</a>
+            <br>
+            <br>
+            </i>
+            </h1>
         </div>
+        
+        <div class="main-text2">
+            <h1>
+                XINGDI WANG
+            </h1>
+        </div>
+
       </div>
-    </main>
+      
+    </div>
+  </main>
 
 
 
@@ -388,13 +405,31 @@
     const menuBtn = document.getElementById('menuBtn');
     const closeBtn = document.getElementById('closeBtn');
     const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
 
-    menuBtn.onclick = function() {
-        sideMenu.style.width = '280px';
-    }
-    closeBtn.onclick = function() {
+    menuBtn.onclick = function () {
+        const currentWidth = window.getComputedStyle(sideMenu).width;
+
+        if (currentWidth === '280px') {
+            sideMenu.style.width = '0';
+            overlay.style.display = 'none';
+        } else {
+            sideMenu.style.width = '280px';
+            overlay.style.display = 'block';
+        }
+    };
+
+    closeBtn.onclick = function () {
         sideMenu.style.width = '0';
-    }
+        overlay.style.display = 'none';
+    };
+
+    /* 点击空白（overlay）自动关闭菜单 */
+    overlay.onclick = function () {
+        sideMenu.style.width = '0';
+        overlay.style.display = 'none';
+    };
+
 
     /*carousel*/
     let index = 0;
