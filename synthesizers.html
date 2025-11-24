@@ -1,22 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xingdi Wang - Plugin</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugins ✵ Xingdi Wang</title>
 
-    <style>
-        .not{
-            color: black;
-            font-size: 80px;
-            justify-content: center;
-        }
-    </style>
+  <style>
+    /* ====== Menu Button ====== */
+    #menuBtn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 20000;
+      color: #ffffff;
+    }
+
+    /* ====== Side Menu ====== */
+    #sideMenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 0;               /* default closed */
+      height: 100%;
+      max-width: 200px;
+      background-color: rgba(0,0,0,0.85);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 20001;
+    }
+
+    #sideMenu a {
+      display: block;
+      padding: 10px 20px;
+      font-size: 20px;
+      text-decoration: none;
+      color: #dddddd;
+    }
+
+    #sideMenu a:hover {
+      color: #ffffff;
+    }
+
+    #closeBtn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 30px;
+      cursor: pointer;
+      color: #ffffff;
+    }
+
+    /* ====== Overlay (click to close menu) ====== */
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.25);
+      display: none;
+      z-index: 15000;
+    }
+
+    /* ====== Main content ====== */
+    body {
+      margin: 0;
+      padding: 24px 16px;
+      background-color: #000000;
+      color: #f5f5f5;
+      font-family: serif;
+    }
+
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .page-header {
+      margin-top: 40px;
+      margin-bottom: 32px;
+      border-bottom: 1px solid #333;
+      padding-bottom: 12px;
+      text-align: center;
+    }
+
+    .page-title {
+      font-size: 32px;
+      letter-spacing: 0.08em;
+    }
+
+    /* Plugin projects */
+    .plugin-list {
+      margin-top: 32px;
+    }
+
+    .plugin {
+      margin-bottom: 48px;
+    }
+
+    .plugin-title {
+      font-size: 22px;
+      margin-bottom: 8px;
+      letter-spacing: 0.06em;
+      text-align: left;
+    }
+
+    .plugin-subtitle {
+      font-size: 14px;
+      color: #aaaaaa;
+      margin-bottom: 16px;
+    }
+
+    .media-block {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .media-video {
+      flex: 1 1 280px;
+    }
+
+    .media-video video {
+      width: 100%;
+      height: auto;
+      border: 1px solid #444;
+      display: block;
+    }
+
+    .plugin-links {
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    .plugin-links a {
+      color: #ffffff;
+      text-decoration: none;
+      border-bottom: 1px solid #666;
+      padding-bottom: 2px;
+    }
+
+    .plugin-links a:hover {
+      border-bottom-color: #ffffff;
+    }
+
+    .note-not-for-sale {
+      font-size: 14px;
+      color: #bbbbbb;
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    .plugin-description {
+    flex: 1 1 280px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #e0e0e0;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .page-header {
+        margin-top: 60px;
+      }
+
+      .page-title {
+        font-size: 24px;
+      }
+
+      .plugin-title {
+        font-size: 18px;
+      }
+
+      .media-block {
+        flex-direction: column;
+      }
+
+      .media-images img {
+        width: 100%;
+      }
+
+      #menuBtn {
+        top: 16px;
+        left: 16px;
+        font-size: 30px;
+      }
+
+      #sideMenu a {
+        font-size: 18px;
+      }
+    }
+  </style>
 </head>
 
-
 <body>
-    <header>
-        <div class="not">preparing..</div>
+
+  <!-- Menu Button -->
+  <span id="menuBtn">☰</span>
+
+  <!-- Overlay -->
+  <div id="overlay"></div>
+
+  <!-- Side Menu -->
+  <div id="sideMenu">
+    <span id="closeBtn">×</span>
+    <a href="index.html">← Home</a>
+    <a href="music.html">✯ Music</a>
+    <a href="installation.html">✫ Installation</a>
+    <a href="synthesizers.html">⍟ Plugin</a>
+    <a href="visual.html">✽ Visual Design</a>
+    <a href="photo.html">✰ Photography</a>
+
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- Header -->
+    <header class="page-header">
+      <div class="page-title">PLUGINS ✵ XINGDI WANG</div>
     </header>
+
+    <section class="plugin-list">
+
+      <!-- ===== Plugin 1: with Patreon purchase link ===== -->
+      <article class="plugin">
+        <h2 class="plugin-title">DELIRIUM·FM — Experimental FM Synth for Reaktor</h2>
+
+        <div class="media-block">
+          <!-- Video preview -->
+            <div class="media-video">
+                <video controls muted>
+                <source src="images/FM 音色.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <div class="plugin-description">
+                <p>
+                    DELIRIUM·FM is a hand-designed FM synthesizer built in Reaktor 6, featuring two carrier oscillators, 
+                    four modulators, a dedicated LFO, and an integrated FX section for creating dark, metallic, and atmospheric sounds.
+                    The interface is fully hand-drawn, giving the instrument a raw, distressed character that matches its sound palette.
+                    <br>Features：<br>
+                    2 Carrier Oscillators (Sine / Saw / Pulse / Imp)<br>
+                    4 Modulating Oscillators with resonant filters. <br>
+                    Dedicated 5-stage LFO<br>
+                    Built-in FX: Feedback, Diffusion, Delay, EQ, Filters<br>
+                    Snapshot system with 10 custom presets<br>
+                    Works inside any DAW through Reaktor
+                </p>
+            </div>
+          
+        </div>
+
+        <div class="plugin-links">
+          Support and download on  
+          <a href="https://www.patreon.com/wngxgd/join?post_tier_unavailable=true&ref_post_id=144298137&redirect_uri=%2Fposts%2Fdelirium-fm-fm-144298137" 
+          target="_blank" rel="noopener noreferrer">Patreon</a>
+        </div>
+      </article>
+
+      <div class="divider" style="height:1px;background-color:#222;margin:0 0 40px 0;"></div>
+
+
+
+      <!-- ===== Plugin 2: showcase only, not for sale ===== -->
+      <article class="plugin">
+        <h2 class="plugin-title">Plugin Project 02 – Showcase Only</h2>
+
+        <div class="media-block">
+          <!-- Video preview (optional – you can remove this div if no video) -->
+          <div class="media-video">
+            <video controls muted>
+              <source src="videos/plugin2_demo.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+          </div>
+
+            <div class="plugin-description">
+            <p>
+                This plugin is designed for experimental sound design, featuring multi-layer
+                modulation, chaotic oscillators, dynamic filtering and custom noise shapers.
+                Ideal for ambient, glitch and cinematic textures.
+            </p>
+            </div>
+        </div>
+
+        <div class="note-not-for-sale">
+          This plugin is not for sale and is currently not available for download.
+        </div>
+      </article>
+
+    </section>
+  </div>
+
+  <script>
+    /* Side menu */
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.getElementById('overlay');
+
+    menuBtn.onclick = function () {
+      const currentWidth = window.getComputedStyle(sideMenu).width;
+
+      if (currentWidth === '200px') {
+        sideMenu.style.width = '0';
+        overlay.style.display = 'none';
+      } else {
+        sideMenu.style.width = '200px';
+        overlay.style.display = 'block';
+      }
+    };
+
+    closeBtn.onclick = function () {
+      sideMenu.style.width = '0';
+      overlay.style.display = 'none';
+    };
+
+    overlay.onclick = function () {
+      sideMenu.style.width = '0';
+      overlay.style.display = 'none';
+    };
+  </script>
+
 </body>
+</html>
