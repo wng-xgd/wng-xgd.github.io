@@ -66,8 +66,8 @@
     left: 0;
     width: 0;               /* 默认收起 */
     height: 100%;
-    max-width: 200px;
-    background-color: rgba(255, 255, 255, 0.026);
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.12);
     overflow-x: hidden;
     transition: 0.3s;
     padding-top: 100px;
@@ -87,15 +87,6 @@
     #sideMenu a:hover {
     color: #a83030;
     }
-
-    #closeBtn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 30px;
-    cursor: pointer;
-    color: #5c5c5c;
-    }
     
     /*遮罩层，用于Menu开关*/
     #overlay {
@@ -108,6 +99,8 @@
     display: none;                /* 默认不显示 */
     z-index: 15000;               /* 要比 sideMenu 低，但高于页面 */
     }
+
+
 
     /*Carousel*/
     .carousel-wrapper {
@@ -241,34 +234,29 @@
       padding: 10px;
     }
 
-    #menuBtn {
-      font-size: 28px;
-      padding: 10px;
-    }
-
     .name {
       font-size: 16px;
     }
 
     /* Side Menu 撑满屏幕，不再固定宽度 */
     #sideMenu {
-      width: 0;
-      left: 0;
-      padding-top: 20%;
+      
+      max-width: 100%;
+      background-color: rgb(255, 255, 255);
     }
-
+    /*
     #sideMenu a {
       font-size: 16px;
       margin: 15px 20px;
-    }
+    } */
 
     /* BIO 文本往下移，字变大一点 */
     .textBio {
       top: 55%;
-      left: 10%;
-      right: 10%;
+      left: 5%;
+      right: 30%;
       font-size: 5px;
-      line-height: 1;
+      line-height: 1.4;
     }
 
     /* 轮播区下降，避免头部遮挡 */
@@ -320,7 +308,7 @@
 
   <div class="textBio">
         <h1>
-      　　°Wang Xingdi (2000) graduated from the Electronic
+      　　°Wang Xingdi graduated from the Electronic
       Musical Instrument Engineering program at Xinghai
       Conservatory of Music and is currently enrolled in the
       Electronic Music Department at the Giuseppe Verdi
@@ -329,10 +317,7 @@
       Her creative pursuits encompass a variety of genres,
       including sound interactive installations, synthesizer
       software design, acousmatic music, and three-
-      dimensional visual projects. Starting from sound
-      samples, she diverges into a series of intricate and
-      miniature worlds based on the interplay between
-      reality and illusion.
+      dimensional visual projects.
       <br><br>
       Her achievements include winning the Bronze Award
       in the International Electronic Music Interactive
@@ -347,7 +332,6 @@
 
   <!-- Side Menu -->
   <div id="sideMenu">
-      <span id="closeBtn">×</span>
       <a href="music.html"> ✯ Music</a>
       <a href="installation.html"> ✫ Installation</a>
       <a href="synthesizers.html"> ⍟ Plugin</a>
@@ -379,7 +363,7 @@
             <br>
             <a href="https://www.instagram.com/wngxgd00s12z20o?igsh=MW1vcTloMWhycW1xdg%3D%3D&utm_source=qr" target=_blank 
             style="color: #ffffff; font-size: 50px; text-decoration: none;">Instagram/</a>
-            <a href="https://xhslink.com/m/8l10sEMKPNQ" target=_blank
+            <a href="https://xhslink.com/m/8l10sEMKPNQ" target=_blank 
             style="color: #ffffff; font-size: 50px; text-decoration: none;">/Xiaohongshu(Rednote)</a>
             <br>
             <br>
@@ -401,34 +385,23 @@
 
 
 <script>
-    /*sidemenu*/
+    /* ===== Side Menu ===== */
     const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeBtn');
     const sideMenu = document.getElementById('sideMenu');
     const overlay = document.getElementById('overlay');
 
+    /* 打开菜单 */
     menuBtn.onclick = function () {
-        const currentWidth = window.getComputedStyle(sideMenu).width;
-
-        if (currentWidth === '280px') {
-            sideMenu.style.width = '0';
-            overlay.style.display = 'none';
-        } else {
-            sideMenu.style.width = '280px';
-            overlay.style.display = 'block';
-        }
+        sideMenu.style.width = '280px';
+        overlay.style.display = 'block';
     };
 
-    closeBtn.onclick = function () {
-        sideMenu.style.width = '0';
-        overlay.style.display = 'none';
-    };
-
-    /* 点击空白（overlay）自动关闭菜单 */
+    /* 点击背景关闭菜单 */
     overlay.onclick = function () {
         sideMenu.style.width = '0';
         overlay.style.display = 'none';
     };
+
 
 
     /*carousel*/
